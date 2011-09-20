@@ -906,7 +906,12 @@ namespace Cadenza.Collections.Tests {
 		[ExpectedException (typeof (NotSupportedException))]
 		public void ToTuple_TooManyValues ()
 		{
-			Enumerable.Range (0, Tuple.MaxValues+1).ToTuple ();
+#if NET_4_0
+			var max = 7;
+#else
+			var max = Tuple.Maxvalues;
+#endif
+			Enumerable.Range (0, max+1).ToTuple ();
 		}
 
 		[Test]
